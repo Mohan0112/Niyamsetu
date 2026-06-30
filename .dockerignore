@@ -1,0 +1,25 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+node_modules
+npm-debug.log*
+Dockerfile*
+docker-compose*.yml
+render.yaml
+README.md
+docs
+backend/server.py
+
+# Runtime/stateful files. Keep only the seed circular if it is needed by docs/tools.
+data/*
+!data/golden_circular.txt
+
+# Editor/system noise.
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.log
+*.tmp

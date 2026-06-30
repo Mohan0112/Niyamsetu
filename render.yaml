@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: niyamsetu
+    runtime: node
+    plan: starter
+    buildCommand: npm install --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: NIYAMSETU_DATA_DIR
+        value: /var/data/niyamsetu
+      - key: NIYAMSETU_SIGNING_KEY
+        generateValue: true
+    disk:
+      name: niyamsetu-data
+      mountPath: /var/data/niyamsetu
+      sizeGB: 1

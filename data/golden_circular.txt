@@ -1,0 +1,18 @@
+Bharat Vikas Bank internal demo circular KYC-2026-001
+
+Source: Reserve Bank of India circular theme, synthetic paraphrase for SuRaksha demo.
+Domain: KYC / AML.
+Effective date: 60 days from issue.
+
+For low-risk individual customers, the periodic KYC re-verification cycle is revised from
+10 years to 8 years. Banks shall update internal policy, core banking parameters, branch
+operating instructions, and customer communication templates before the effective date.
+
+Banks shall identify all low-risk customers who become due or overdue under the revised
+8-year cycle, issue customer notices in English and the dominant regional language of the
+branch, and complete re-screening with an empathetic process for elderly, rural, and
+inoperative-account customers.
+
+Branches shall upload evidence of completed customer outreach, staff acknowledgement, and
+KYC camp execution where pendency exceeds the bank threshold. Compliance shall maintain an
+audit trail linking the circular clause, action point, owner, evidence, and validation result.

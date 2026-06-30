@@ -1,0 +1,414 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NiyamSetu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#mainWorkspace">Skip to workspace</a>
+    <section id="authGate" class="auth-gate" aria-label="Login">
+      <div class="auth-panel">
+        <div class="auth-card">
+          <div class="auth-brand">
+            <div class="auth-mark" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-5"></path></svg>
+            </div>
+            <div class="brand-text">
+              <strong>NiyamSetu</strong>
+              <span>Bharat Vikas Bank</span>
+            </div>
+          </div>
+          <div class="auth-title">
+            <p class="eyebrow">Secure access</p>
+            <h1>Sign in to the compliance console</h1>
+            <p>Use your bank account, create a demo account, or continue as a guest to review compliance operations.</p>
+          </div>
+          <form id="authForm" class="auth-form">
+            <div>
+              <label class="field-label" for="authUsername">Username</label>
+              <input id="authUsername" class="input" autocomplete="username" placeholder="Username or email" required />
+            </div>
+            <div>
+              <label class="field-label" for="authPassword">Password</label>
+              <div class="password-field"><input id="authPassword" class="input" type="password" autocomplete="current-password" placeholder="Password" required /><button id="togglePasswordBtn" class="button ghost password-toggle" type="button" aria-label="Show password">Show</button></div>
+            </div>
+            <div class="auth-actions"><button id="authLoginBtn" class="button primary" type="submit">Sign in</button><button id="guestLoginBtn" class="button secondary" type="button">Continue as guest</button></div>
+            <div id="authError" class="auth-error" role="alert"></div>
+          </form>          <button id="signupToggleBtn" class="auth-link" type="button">Create a demo account</button>
+          <form id="signupForm" class="signup-form is-hidden" aria-label="Create demo account">
+            <div>
+              <label class="field-label" for="signupName">Full name</label>
+              <input id="signupName" class="input" autocomplete="name" placeholder="Your name" />
+            </div>
+            <div class="signup-grid">
+              <div>
+                <label class="field-label" for="signupUsername">Username</label>
+                <input id="signupUsername" class="input" autocomplete="username" placeholder="new.user" />
+              </div>
+              <div>
+                <label class="field-label" for="signupEmail">Email</label>
+                <input id="signupEmail" class="input" type="email" autocomplete="email" placeholder="name@example.com" />
+              </div>
+            </div>
+            <div>
+              <label class="field-label" for="signupPassword">Password</label>
+              <input id="signupPassword" class="input" type="password" autocomplete="new-password" placeholder="At least 8 characters" />
+            </div>
+            <button id="signupSubmitBtn" class="button primary" type="submit">Create account</button>
+            <div id="signupError" class="auth-error" role="alert"></div>
+          </form>
+        </div>
+      </div>
+      <div class="auth-preview" aria-hidden="true">
+        <div class="auth-preview-card">
+          <p class="eyebrow">Live demo scope</p>
+          <h2>Compliance workspace for a 15-branch bank</h2>
+          <p class="auth-preview-copy">A realistic banking workspace with audit history, branch operations, validation controls, and seeded employees for Bharat Vikas Bank.</p>
+          <div class="auth-preview-grid">
+            <div class="auth-preview-item"><span>Branches</span><strong>15</strong></div>
+            <div class="auth-preview-item"><span>Employees</span><strong>107</strong></div>
+            <div class="auth-preview-item"><span>Roles</span><strong>10</strong></div>
+            <div class="auth-preview-item"><span>Audit records</span><strong>6</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="app" class="app-layout is-hidden">
+      
+      <!-- Top Navigation -->
+      <header class="top-nav">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <div class="brand-text">
+            <strong>NiyamSetu</strong>
+            <span>Agentic Compliance Platform</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary">
+          <button class="nav-item active" data-view="console" type="button">Console</button>
+          <button class="nav-item" data-view="maps" type="button">Action Points</button>
+          <button class="nav-item" data-view="branch" type="button">Branch PWA</button>
+          <button class="nav-item" data-view="bank" type="button">Bank Network</button>
+          <button class="nav-item" data-view="validation" type="button">Validation</button>
+          <button class="nav-item" data-view="audit" type="button">Audit Trail</button>
+        </nav>
+
+        <div class="top-nav-actions">
+          <div class="server-status">
+            <span id="healthDot" class="dot idle"></span>
+            <span id="healthText" class="text-muted">Connecting...</span>
+          </div>
+          <div class="session-strip"><span>Signed in as</span><strong id="sessionUser">-</strong><button id="appLogoutBtn" class="button ghost" type="button">Logout</button></div><div class="divider"></div>
+          <select id="scenarioSelect" class="select" aria-label="CBS scenario">
+            <option value="partial">CBS: Partial</option>
+            <option value="validated">CBS: Validated</option>
+            <option value="not_validated">CBS: Not validated</option>
+          </select>
+          <button id="themeToggleBtn" class="button ghost" type="button" title="Toggle Light/Dark Theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+          <button id="resetBtn" class="button ghost" type="button">Reset Engine</button>
+        </div>
+      </header>
+
+      <!-- Main Workspace -->
+      <main id="mainWorkspace" class="workspace">
+        <section class="workspace-header" aria-label="Workspace summary">
+          <div>
+            <p class="eyebrow">Bharat Vikas Bank command center</p>
+            <h1>NiyamSetu Compliance Operations</h1>
+            <p>Track circular interpretation, action ownership, branch execution, validation, access scope, and tamper-evident audit history in one console.</p>
+          </div>
+          <div class="workspace-header-actions">
+            <span class="header-chip">15 branches</span>
+            <span class="header-chip">107 employees</span>
+            <span class="header-chip">Access controlled</span>
+          </div>
+        </section>
+
+        <!-- Console View -->
+        <section id="view-console" class="view active">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Console</p>
+              <h2>Live regulatory pipeline</h2>
+            </div>
+            <span class="view-context">Offline demo service</span>
+          </div>
+          
+          <!-- Key Metrics floating at the top -->
+          <div class="metrics-row">
+            <div class="metric-card">
+              <span class="metric-label">Domain Class</span>
+              <strong id="metricDomain" class="metric-value">-</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Action Points</span>
+              <strong id="metricMaps" class="metric-value">0</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Branch Dispatch</span>
+              <strong id="metricDispatches" class="metric-value">0</strong>
+            </div>
+            <div class="metric-card">
+              <span class="metric-label">Audit Chain</span>
+              <strong id="metricAudit" class="metric-value">0</strong>
+            </div>
+          </div>
+
+          <section class="panel bank-console-panel">
+            <header class="panel-header">
+              <div>
+                <p class="eyebrow">Bharat Vikas Bank</p>
+                <h2>Bank network is live</h2>
+              </div>
+              <button id="openBankViewBtn" class="button secondary" type="button">Open Bank Network</button>
+            </header>
+            <div id="consoleBankSummary" class="bank-console-summary"></div>
+          </section>
+
+          <div class="console-grid">
+            <!-- Left Side: Circular Intake -->
+            <section class="panel intake-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Input Source</p>
+                  <h2>Regulatory Circular</h2>
+                </div>
+                <button id="processBtn" class="button primary glow" type="button">Execute Pipeline</button>
+              </header>
+              <div class="input-group">
+                <input id="titleInput" class="input" value="KYC-2026-001" aria-label="Circular title" placeholder="Circular Ref ID" />
+              </div>
+              <textarea id="circularInput" class="textarea" aria-label="Circular text" placeholder="Paste circular text here..."></textarea>
+            </section>
+
+            <!-- Right Side: Agent Trace -->
+            <section class="panel trace-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Execution Pipeline</p>
+                  <h2>Agent Trace</h2>
+                </div>
+                <span id="pipelineStatus" class="status-badge neutral">Idle</span>
+              </header>
+              <div class="trace-container">
+                <div id="agentTrace" class="agent-trace">
+                  <!-- JS injects timeline items here -->
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Impact Graph -->
+          <section class="panel">
+            <header class="panel-header">
+              <div>
+                <p class="eyebrow">Niyam-Jaal Engine</p>
+                <h2>Impact Dependency Graph</h2>
+              </div>
+            </header>
+            <div id="graphView" class="graph-view"></div>
+          </section>
+        </section>
+
+        <!-- MAPs View -->
+        <section id="view-maps" class="view">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Action Points</p>
+              <h2>Measurable ownership workbench</h2>
+            </div>
+            <span class="view-context">Drafts, approvals, evidence</span>
+          </div>
+          <div class="split-view">
+            <section class="panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Measurable Action Points</p>
+                  <h2>Ownership Workbench</h2>
+                </div>
+              </header>
+              <div id="mapList" class="scroll-list map-list"></div>
+            </section>
+            
+            <section class="panel detail-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Human-in-the-loop</p>
+                  <h2>Draft Artifact Review</h2>
+                </div>
+              </header>
+              <div id="draftDetail" class="draft-detail empty-state">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <p>Select an Action Point to review the generated artifact.</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Branch PWA View -->
+        <section id="view-branch" class="view">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Branch PWA</p>
+              <h2>Dispatch queue and branch execution</h2>
+            </div>
+            <span class="view-context">Regional language checklists</span>
+          </div>
+          <div class="branch-layout">
+            <section class="panel branch-list-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Distribution</p>
+                  <h2>Network Dispatch Queue</h2>
+                </div>
+              </header>
+              <div id="branchList" class="scroll-list branch-list"></div>
+            </section>
+            
+            <section class="mobile-preview-container">
+              <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-app">
+                  <header class="phone-header">
+                    <div>
+                      <p id="phoneLanguage" class="eyebrow">Branch PWA</p>
+                      <h2 id="phoneBranch">Select a branch</h2>
+                    </div>
+                    <span id="phonePendency" class="status-badge neutral">-</span>
+                  </header>
+                  <div id="branchTasks" class="phone-content branch-tasks"></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Validation View -->
+
+        <section id="view-bank" class="view">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Bank Network</p>
+              <h2>Bharat Vikas Bank hierarchy</h2>
+            </div>
+            <span class="view-context">People, branches, audit scope</span>
+          </div>
+          <div class="bank-grid">
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Bharat Vikas Bank</p>
+                  <h2>Dummy bank network</h2>
+                </div>
+                <span id="bankAuthStatus" class="pill neutral">not signed in</span>
+              </div>
+              <div id="bankMetrics" class="metrics-row compact"></div>
+              <div id="sampleLogins" class="sample-logins"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Access scope</p>
+                  <h2>Current user</h2>
+                </div>
+                <button id="bankLogoutBtn" class="button ghost" type="button">Logout</button>
+              </div>
+              <div id="bankMe" class="bank-me empty-state">Sign in to see your access scope.</div>
+            </section>
+          </div>
+          <section class="panel">
+            <div class="panel-heading table-heading">
+              <div>
+                <p class="eyebrow">Employees</p>
+                <h2>Scoped employee directory</h2>
+              </div>
+              <input id="employeeSearchInput" class="input search-input" type="search" aria-label="Search employees" placeholder="Search employees, role, branch" />
+            </div>
+            <div id="employeeTable" class="table-wrap empty-state">Login to load employees.</div>
+          </section>
+          <div class="validation-grid bank-lower-grid">
+            <section class="panel">
+              <div class="panel-heading"><div><p class="eyebrow">Bank audits</p><h2>Audits & findings</h2></div></div>
+              <div id="bankAudits" class="validation-results"></div>
+            </section>
+            <section class="panel">
+              <div class="panel-heading"><div><p class="eyebrow">Security</p><h2>Login logs</h2></div></div>
+              <div id="loginLogs" class="validation-results"></div>
+            </section>
+          </div>
+        </section>
+        <section id="view-validation" class="view">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Validation</p>
+              <h2>Pramanik checks against CBS state</h2>
+            </div>
+            <span class="view-context">Scenario based control testing</span>
+          </div>
+          <div class="validation-layout">
+            <section class="panel cbs-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Mock Core Banking</p>
+                  <h2>System State</h2>
+                </div>
+                <button id="runValidationBtn" class="button primary" type="button">Run Pramanik Check</button>
+              </header>
+              <div id="cbsSnapshot" class="cbs-grid"></div>
+            </section>
+            
+            <section class="panel verdicts-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="eyebrow">Compliance Verdicts</p>
+                  <h2>Validation Results</h2>
+                </div>
+              </header>
+              <div id="validationResults" class="scroll-list validation-results"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Audit View -->
+        <section id="view-audit" class="view">
+          <div class="view-title">
+            <div>
+              <p class="eyebrow">Audit Trail</p>
+              <h2>Tamper-evident ledger</h2>
+            </div>
+            <span class="view-context">Exportable evidence chain</span>
+          </div>
+          <section class="panel">
+            <header class="panel-header">
+              <div>
+                <p class="eyebrow">Immutable Ledger</p>
+                <h2>Tamper-Evident Trail</h2>
+              </div>
+              <div class="header-actions">
+                <span id="auditStatus" class="status-badge neutral">Unchecked</span>
+                <button id="exportAuditBtn" class="button secondary" type="button">Export Block Data</button>
+              </div>
+            </header>
+            <div id="auditTimeline" class="audit-timeline"></div>
+          </section>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
+

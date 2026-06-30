@@ -1,0 +1,15 @@
+{
+  "name": "niyamsetu-offline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline NiyamSetu end-to-end regulatory compliance demo for SuRaksha PS2.",
+  "scripts": {
+    "start": "node backend/server.js",
+    "healthcheck": "node scripts/healthcheck.js",
+    "offline-check": "node scripts/offline_check.js",
+    "docker:build": "docker build -t niyamsetu:local ."
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
